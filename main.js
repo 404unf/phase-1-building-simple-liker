@@ -13,7 +13,7 @@ function handleHeart(event) {
     mimicServerCall()
       // .then(response=>response.json())
       .then(data => { this.textContent = FULL_HEART; this.classList.add('activated-heart') })
-      .catch(error => handleFail)
+      .catch(error => handleFail(error))
   }
   if(this.textContent === FULL_HEART){
     this.textContent = EMPTY_HEART
@@ -27,12 +27,13 @@ function handleFail(error) {
   modal.classList.remove('hidden')
 
   // Display server message
-  modal.textContent(error.message)
+  const modalMsg = document.querySelector('#modal-message')
+  modalMsg.textContent = error
 
   // Hide modal for 3 seconds
   setTimeout(() => {
-    modal.classList = 'hidden'
-  }, 3);
+    modal.classList.add('hidden')
+  }, 3000);
 }
 
 
